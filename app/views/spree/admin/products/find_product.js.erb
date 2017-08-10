@@ -1,0 +1,8 @@
+<% if @product.nil? %>
+  alert('No se encontró producto con los datos ingresados');
+<% else %>
+  $('#destino-id').val('<%= @product.id %>');
+  $('#listing_products tbody').empty();
+  $('#listing_products tbody').append("<%= escape_javascript(render 'product_table') %>");
+  $('.desinto').show();
+<% end %>

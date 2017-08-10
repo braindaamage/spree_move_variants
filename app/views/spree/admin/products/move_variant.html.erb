@@ -1,0 +1,60 @@
+<%= render :partial => 'spree/admin/shared/product_sub_menu' %>
+<%= render partial: 'spree/admin/shared/product_tabs', locals: {current: :variants} %>
+
+<h1>Mover Variante</h1>
+<br/>
+
+<table class="index" >
+  <colgroup>
+    <col style="width: 30%" />
+    <col style="width: 35%" />
+    <col style="width: 35%" />
+  </colgroup>
+  <thead data-hook="variants_header">
+    <tr>
+      <th><%= Spree.t(:options) %></th>
+      <th><%= Spree.t(:price) %></th>
+      <th><%= Spree.t(:sku) %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr id="<%= spree_dom_id @variant %>" <%= 'style="color:red;"' if @variant.deleted? %> data-hook="variants_row" class="<%= cycle('odd', 'even')%>">
+      <td><%= @variant.options_text %></td>
+      <td class="align-center"><%= @variant.display_price.to_html %></td>
+      <td class="align-center"><%= @variant.sku %></td>
+    </tr>
+  </tbody>
+</table>
+<br/>
+
+<div class="search-product">
+  <h3>Buscar Producto</h3>
+  <%= form_tag spree.admin_move_variant_find_path(@variant.slug, @variant.sku), method: 'post', remote: true do %>
+    <%= text_field_tag :name_destino, nil, placeholder: 'Por nombre' %>
+    &nbsp; O &nbsp;
+    <%= text_field_tag :sku_destino, nil, placeholder: 'Por SKU' %>
+    <%= submit_tag 'Buscar' %>
+  <% end %>
+</div>
+<br><br>
+<div class="desinto" style="display: none;">
+  <h3>Destino</h3>
+  <table class="table" id="listing_products">
+    <thead>
+      <tr data-hook="admin_products_index_headers">
+        <th colspan="2"><%= Spree.t(:name) %></th>
+        <th class="text-center">
+          <%= Spree.t(:master_price) %>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+  <%= form_tag spree.admin_move_variant_exchange_path(@variant.slug, @variant.sku), method: 'post', remote: false do %>
+    <%= hidden_field_tag :product_id, nil, id: 'destino-id' %>
+    <%= check_box_tag :delete_old %> &nbsp;
+    <%= label_tag :delete_old, "Eliminar producto original al quedar sin variantes" %>
+    <%= submit_tag 'Mover', style: 'float: right;', data: { confirm: '¿Estás seguro que quieres mover la variante al producto destino?' } %>
+  <% end %>
+</div>

@@ -45,7 +45,10 @@ RSpec.configure do |config|
   #
   # visit spree.admin_path
   # current_path.should eql(spree.products_path)
+  config.include Spree::TestingSupport::AuthorizationHelpers
+  config.include Spree::TestingSupport::ControllerRequests
   config.include Spree::TestingSupport::UrlHelpers
+  config.include Devise::TestHelpers, type: :controller
 
   # == Mock Framework
   #
@@ -84,4 +87,6 @@ RSpec.configure do |config|
 
   config.fail_fast = ENV['FAIL_FAST'] || false
   config.order = "random"
+
+  config.default_formatter = 'd'
 end

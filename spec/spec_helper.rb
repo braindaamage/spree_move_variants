@@ -18,6 +18,7 @@ require File.expand_path('../dummy/config/environment.rb',  __FILE__)
 require 'rspec/rails'
 require 'database_cleaner'
 require 'ffaker'
+require 'capybara-webkit'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -67,6 +68,8 @@ RSpec.configure do |config|
   # to cleanup after each test instead.  Without transactional fixtures set to false the records created
   # to setup a test will be unavailable to the browser, which runs under a separate server instance.
   config.use_transactional_fixtures = false
+
+  Capybara.javascript_driver = :webkit
 
   # Ensure Suite is set to use transactions for speed.
   config.before :suite do

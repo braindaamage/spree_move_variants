@@ -25,7 +25,7 @@ Spree::Admin::ProductsController.class_eval do
 
   def exchange_product
     delete_old = params[:delete_old] || false
-    product = Spree::Product.find(params[:product_id])
+    product = Spree::Product.find(params[:product_id]) rescue nil
     if !product.nil?
       variant = Spree::Variant.find_by_sku(params[:sku])
       variant.update product_id: product.id

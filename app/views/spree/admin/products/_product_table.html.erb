@@ -1,0 +1,5 @@
+<tr <%== "style='color: red;'" if @product.deleted? %> id="<%= spree_dom_id @product %>" data-hook="admin_products_index_rows" class="<%= cycle('odd', 'even') %>">
+  <td class="image"><%= mini_image @product %></td>
+  <td><%= link_to @product.try(:name), edit_admin_product_path(@product), target: '_blank' %></td>
+  <td class="text-center"><%= @product.display_price.to_html rescue '' %></td>
+</tr>
